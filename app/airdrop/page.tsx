@@ -243,22 +243,14 @@ export default function Page(){
 
 
 
-const container={
-
-  background:"#020617",
-
-  height:"100vh",
-
-  display:"flex",
-
-  flexDirection:"column",
-
-  alignItems:"center",
-
-  justifyContent:"center",
-
-  color:"white"
-
+const container: React.CSSProperties = {
+  background: "#020617",
+  height: "100vh",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  color: "white"
 };
 
 
