@@ -339,75 +339,75 @@ export default function PresalePage(){
 
 /* STYLES */
 
-const container: CSSProperties = {
-  background:"#020617",
-  height:"100vh",
-  display:"flex",
-  flexDirection:"column",
-  justifyContent:"center",
-  alignItems:"center",
-  color:"white"
+const container = {
+  background: "#020617",
+  height: "100vh",
+  display: "flex",
+  flexDirection: "column" as const,
+  justifyContent: "center",
+  alignItems: "center",
+  color: "white",
 };
 
-const title: CSSProperties = {
-  fontSize:"32px",
-  marginBottom:"20px"
+const title = {
+  fontSize: "32px",
+  marginBottom: "20px",
 };
 
-const icon: CSSProperties = {
-  background:"#FACC15",
-  width:"80px",
-  height:"80px",
-  borderRadius:"20px",
-  display:"flex",
-  justifyContent:"center",
-  alignItems:"center",
-  fontSize:"36px",
-  marginBottom:"20px"
+const icon = {
+  background: "#FACC15",
+  width: "80px",
+  height: "80px",
+  borderRadius: "20px",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  fontSize: "36px",
+  marginBottom: "20px",
 };
 
-const box: CSSProperties = {
-  display:"flex",
-  flexDirection:"column",
-  marginTop:"10px"
+const box = {
+  display: "flex",
+  flexDirection: "column" as const,
+  marginTop: "10px",
 };
 
-const label: CSSProperties = {
-  color:"#94A3B8",
-  marginBottom:"5px"
+const label = {
+  color: "#94A3B8",
+  marginBottom: "5px",
 };
 
-const input: CSSProperties = {
-  padding:"12px",
-  borderRadius:"10px",
-  border:"1px solid #1E293B",
-  background:"#020617",
-  color:"white",
-  width:"240px",
-  fontSize:"16px"
+const input = {
+  padding: "12px",
+  borderRadius: "10px",
+  border: "1px solid #1E293B",
+  background: "#020617",
+  color: "white",
+  width: "240px",
+  fontSize: "16px",
 };
 
-const button: CSSProperties = {
-  marginTop:"20px",
-  padding:"14px 30px",
-  background:"#84CC16",
-  border:"none",
-  borderRadius:"12px",
-  fontWeight:"bold",
-  fontSize:"16px",
-  cursor:"pointer"
+const button = {
+  marginTop: "20px",
+  padding: "14px 30px",
+  background: "#84CC16",
+  border: "none",
+  borderRadius: "12px",
+  fontWeight: "bold",
+  fontSize: "16px",
+  cursor: "pointer",
 };
 
-const wallet: CSSProperties = {
-  marginTop:"20px",
-  fontSize:"11px",
-  color:"#64748B",
-  maxWidth:"300px",
-  wordBreak:"break-all"
+const wallet = {
+  marginTop: "20px",
+  fontSize: "11px",
+  color: "#64748B",
+  maxWidth: "300px",
+  wordBreak: "break-all" as const,
 };
 
-const minText: CSSProperties = {
-  marginTop:"10px",
-  fontSize:"12px",
-  color:"#64748B"
+const minText = {
+  marginTop: "10px",
+  fontSize: "12px",
+  color: "#64748B",
 };
