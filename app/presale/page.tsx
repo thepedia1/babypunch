@@ -1,9 +1,7 @@
-import type { CSSProperties } from "react";
 "use client";
-
 import { useState } from "react";
 import dynamic from "next/dynamic";
-
+import type { CSSProperties } from "react";
 import {
   ConnectionProvider,
   WalletProvider,
