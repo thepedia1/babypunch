@@ -1,6 +1,6 @@
 "use client";
-
-import { useState } from "react";
+import AirdropDashboard from "@/components/AirdropDashboard";
+import { useState, useEffect } from "react";
 import {
   ConnectionProvider,
   WalletProvider,
@@ -30,9 +30,43 @@ const MIN_SOL = 0.03;
 function PresaleMain() {
   const { publicKey, sendTransaction, connected } = useWallet();
   const [amount, setAmount] = useState("");
+useEffect(() => {
+  if (!publicKey) return;
 
+  const wallet = publicKey.toString();
+  const urlParams = new URLSearchParams(window.location.search);
+  const ref = urlParams.get("ref");
+
+  // ❌ Tidak ada ref atau self-ref
+  if (!ref || ref === wallet) return;
+
+  // 🔒 Cek apakah wallet ini sudah pernah klaim referral
+  const alreadyClaimed = localStorage.getItem(
+    `ref_claimed_by_${wallet}`
+  );
+
+  if (alreadyClaimed) return;
+
+  // 🔍 Ambil data referrer
+  const refData = localStorage.getItem(ref);
+  if (!refData) return;
+
+  const parsed = JSON.parse(refData);
+  parsed.ref = (parsed.ref || 0) + 500;
+
+  localStorage.setItem(ref, JSON.stringify(parsed));
+
+  // Tandai sudah klaim
+  localStorage.setItem(
+    `ref_claimed_by_${wallet}`,
+    "true"
+  );
+
+}, [publicKey]);
   const sol = Number(amount) || 0;
-  const bpunch = sol * RATE;
+  const base = sol * RATE;
+const bonus = base * 0.05;
+const bpunch = base + bonus;
 
   async function buyToken() {
     if (!publicKey) return alert("Connect wallet first");
@@ -68,7 +102,7 @@ function PresaleMain() {
       </div>
 
       <WalletMultiButton />
-
+      <AirdropDashboard />
       <div className="mt-6 flex flex-col items-center gap-4">
         <input
           type="number"
