@@ -1,5 +1,5 @@
 "use client";
-
+import type { CSSProperties } from "react";
 export default function Tokenomics(){
 
   const data = [
@@ -171,75 +171,75 @@ export default function Tokenomics(){
 
 
 /* STYLES */
-const container = {
+const container: CSSProperties = {
   background: "#020617",
   minHeight: "100vh",
-  display: "flex" as const,
-  flexDirection: "column" as const,
-  alignItems: "center" as const,
-  justifyContent: "center" as const,
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
   color: "white"
 };
 
-const title = {
+const title: CSSProperties = {
   fontSize: "32px",
   marginBottom: "30px"
 };
 
-const chartWrapper = {
+const chartWrapper: CSSProperties = {
   marginBottom: "30px"
 };
 
-const donut = {
+const donut: CSSProperties = {
   width: "360px",
   height: "360px",
   borderRadius: "50%",
-  display: "flex" as const,
-  alignItems: "center" as const,
-  justifyContent: "center" as const
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center"
 };
 
-const center = {
+const center: CSSProperties = {
   width: "180px",
   height: "180px",
   borderRadius: "50%",
   background: "#020617",
-  display: "flex" as const,
-  flexDirection: "column" as const,
-  alignItems: "center" as const,
-  justifyContent: "center" as const,
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
   border: "4px solid #1E293B"
 };
 
-const monkeyIcon = {
+const monkeyIcon: CSSProperties = {
   fontSize: "50px",
   marginBottom: "10px",
   background: "#FACC15",
   width: "70px",
   height: "70px",
   borderRadius: "16px",
-  display: "flex" as const,
-  alignItems: "center" as const,
-  justifyContent: "center" as const
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center"
 };
 
-const centerText = {
+const centerText: CSSProperties = {
   color: "#84CC16",
   fontWeight: "bold"
 };
 
-const legend = {
+const legend: CSSProperties = {
   width: "320px"
 };
 
-const row = {
-  display: "flex" as const,
-  justifyContent: "space-between" as const,
+const row: CSSProperties = {
+  display: "flex",
+  justifyContent: "space-between",
   marginTop: "10px"
 };
 
-const total = {
+const total: CSSProperties = {
   marginTop: "20px",
   color: "#94A3B8",
-  textAlign: "center" as const
+  textAlign: "center"
 };
