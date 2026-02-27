@@ -1,245 +1,53 @@
 "use client";
-import type { CSSProperties } from "react";
-export default function Tokenomics(){
 
+export default function Tokenomics() {
   const data = [
-
-    {
-      name:"Community",
-      percent:40,
-      color:"#65A30D"
-    },
-
-    {
-      name:"Presale",
-      percent:30,
-      color:"#3B82F6"
-    },
-
-    {
-      name:"Team",
-      percent:10,
-      color:"#F59E0B"
-    },
-
-    {
-      name:"Liquidity",
-      percent:10,
-      color:"#A855F7"
-    },
-
-    {
-      name:"Marketing",
-      percent:7,
-      color:"#EC4899"
-    },
-
-    {
-      name:"Reserve",
-      percent:3,
-      color:"#64748B"
-    }
-
+    { name: "Community", percent: 40, color: "#65A30D" },
+    { name: "Presale", percent: 30, color: "#3B82F6" },
+    { name: "Team", percent: 10, color: "#F59E0B" },
+    { name: "Liquidity", percent: 10, color: "#A855F7" },
+    { name: "Marketing", percent: 7, color: "#EC4899" },
+    { name: "Reserve", percent: 3, color: "#64748B" }
   ];
 
+  const gradient = data
+    .map((item, index) => {
+      const start = data
+        .slice(0, index)
+        .reduce((sum, a) => sum + a.percent, 0);
+      const end = start + item.percent;
+      return `${item.color} ${start}% ${end}%`;
+    })
+    .join(",");
 
-  const gradient =
-    data
-      .map((item,index)=>{
+  return (
+    <div className="bg-[#020617] min-h-screen flex flex-col items-center justify-center text-white px-4">
+      <h1 className="text-3xl font-bold mb-8">BPUNCH Tokenomics</h1>
 
-        const start =
-          data
-            .slice(0,index)
-            .reduce(
-              (sum,a)=>sum+a.percent,
-              0);
-
-        const end =
-          start + item.percent;
-
-        return `${item.color} ${start}% ${end}%`;
-
-      })
-      .join(",");
-
-
-
-  return(
-
-    <div style={container}>
-
-
-      <h1 style={title}>
-        BPUNCH Tokenomics
-      </h1>
-
-
-
-      {/* DONUT */}
-
-      <div style={chartWrapper}>
-
-
-        <div
-          style={{
-            ...donut,
-            background:`conic-gradient(${gradient})`
-          }}
-        >
-
-
-          {/* CENTER */}
-
-          <div style={center}>
-
-
-            {/* MONKEY LOGO */}
-
-            <div style={monkeyIcon}>
-              🐵
-            </div>
-
-
-            <p style={centerText}>
-              BPUNCH
-            </p>
-
-
-          </div>
-
-
+      <div
+        className="w-80 h-80 rounded-full flex items-center justify-center"
+        style={{ background: `conic-gradient(${gradient})` }}
+      >
+        <div className="w-40 h-40 rounded-full bg-[#020617] flex flex-col items-center justify-center border-4 border-slate-800">
+          <div className="text-4xl mb-2">🐵</div>
+          <div className="text-lime-400 font-bold">BPUNCH</div>
         </div>
-
-
       </div>
 
-
-
-      {/* LEGEND */}
-
-      <div style={legend}>
-
-
-        {data.map((item,i)=>(
-
-          <div key={i} style={row}>
-
-
-            <div
-              style={{
-                width:"14px",
-                height:"14px",
-                background:item.color,
-                borderRadius:"4px"
-              }}
-            />
-
-
-            <span>
-              {item.name}
-            </span>
-
-
-            <span>
-              {item.percent}%
-            </span>
-
-
+      <div className="mt-8 w-80 space-y-2">
+        {data.map((item, i) => (
+          <div key={i} className="flex justify-between">
+            <span>{item.name}</span>
+            <span>{item.percent}%</span>
           </div>
-
         ))}
-
-
       </div>
 
-
-
-      <p style={total}>
-        Total Supply:
-        <br/>
+      <p className="mt-6 text-slate-400 text-center">
+        Total Supply
+        <br />
         1,000,000,000 BPUNCH
       </p>
-
-
-
     </div>
-
   );
-
 }
-
-
-
-/* STYLES */
-const container: CSSProperties = {
-  background: "#020617",
-  minHeight: "100vh",
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  justifyContent: "center",
-  color: "white"
-};
-
-const title: CSSProperties = {
-  fontSize: "32px",
-  marginBottom: "30px"
-};
-
-const chartWrapper: CSSProperties = {
-  marginBottom: "30px"
-};
-
-const donut: CSSProperties = {
-  width: "360px",
-  height: "360px",
-  borderRadius: "50%",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center"
-};
-
-const center: CSSProperties = {
-  width: "180px",
-  height: "180px",
-  borderRadius: "50%",
-  background: "#020617",
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  justifyContent: "center",
-  border: "4px solid #1E293B"
-};
-
-const monkeyIcon: CSSProperties = {
-  fontSize: "50px",
-  marginBottom: "10px",
-  background: "#FACC15",
-  width: "70px",
-  height: "70px",
-  borderRadius: "16px",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center"
-};
-
-const centerText: CSSProperties = {
-  color: "#84CC16",
-  fontWeight: "bold"
-};
-
-const legend: CSSProperties = {
-  width: "320px"
-};
-
-const row: CSSProperties = {
-  display: "flex",
-  justifyContent: "space-between",
-  marginTop: "10px"
-};
-
-const total: CSSProperties = {
-  marginTop: "20px",
-  color: "#94A3B8",
-  textAlign: "center"
-};

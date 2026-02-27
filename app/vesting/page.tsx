@@ -1,207 +1,38 @@
 "use client";
-import type { CSSProperties } from "react";
-export default function VestingPage() {
 
+export default function VestingPage() {
   const TOTAL_SUPPLY = 1000000000;
 
   const vestingData = [
-
-    {
-      type: "Presale",
-      total: 300000000,
-      unlocked: 120000000,
-      locked: 180000000,
-      tge: "40%",
-      schedule: "60% over 2 months"
-    },
-
-    {
-      type: "Airdrop",
-      total: 150000000,
-      unlocked: 60000000,
-      locked: 90000000,
-      tge: "40%",
-      schedule: "60% over 2 months"
-    },
-
-    {
-      type: "Team",
-      total: 100000000,
-      unlocked: 0,
-      locked: 100000000,
-      tge: "0%",
-      schedule: "3 month cliff, then 12 month vesting"
-    }
-
+    { type: "Presale", total: 300000000, unlocked: 120000000, locked: 180000000 },
+    { type: "Airdrop", total: 150000000, unlocked: 60000000, locked: 90000000 },
+    { type: "Team", total: 100000000, unlocked: 0, locked: 100000000 }
   ];
 
-
   return (
+    <div className="bg-[#020617] min-h-screen text-white p-10">
+      <h1 className="text-3xl font-bold mb-10">BPUNCH Vesting</h1>
 
-    <div style={container}>
-
-      {/* TITLE */}
-
-      <h1 style={title}>
-        BPUNCH Vesting
-      </h1>
-
-
-      {/* CARDS */}
-
-      <div style={cardRow}>
-
-        <div style={card}>
-          <div style={cardTitle}>
-            Presale Vesting
-          </div>
-
-          <div style={green}>
-            40% at TGE
-          </div>
-
-          <div style={sub}>
-            60% released over 2 months
-          </div>
-        </div>
-
-
-        <div style={card}>
-          <div style={cardTitle}>
-            Airdrop Vesting
-          </div>
-
-          <div style={green}>
-            40% at TGE
-          </div>
-
-          <div style={sub}>
-            60% released over 2 months
-          </div>
-        </div>
-
-
-        <div style={card}>
-          <div style={cardTitle}>
-            Team Vesting
-          </div>
-
-          <div style={green}>
-            0% at TGE
-          </div>
-
-          <div style={sub}>
-            3 month cliff, then 12 month vesting
-          </div>
-        </div>
-
-      </div>
-
-
-      {/* STATUS */}
-
-      <div style={progressSection}>
-
-        <div style={progressTitle}>
-          Vesting Status
-        </div>
-
-        <div style={progressBar}>
-          <div style={progressFill}/>
-        </div>
-
-        <div style={progressText}>
-          Vesting has not started
-        </div>
-
-      </div>
-
-
-      {/* TABLE */}
-
-      <div style={table}>
-
-        <div style={headerRow}>
-
-          <div style={colType}>
-            Type
-          </div>
-
-          <div style={col}>
-            Total
-          </div>
-
-          <div style={col}>
-            Unlocked at TGE
-          </div>
-
-          <div style={col}>
-            Locked
-          </div>
-
-          <div style={colSmall}>
-            TGE
-          </div>
-
-          <div style={colSmall}>
-            Schedule
-          </div>
-
-        </div>
-
-
+      <div className="space-y-4">
         {vestingData.map(v => (
-
-          <div key={v.type} style={row}>
-
-            <div style={colType}>
-              {v.type}
+          <div key={v.type} className="border border-slate-800 p-6 rounded-xl">
+            <div className="text-lg mb-2">{v.type}</div>
+            <div className="text-lime-400">
+              Unlocked: {v.unlocked.toLocaleString()}
             </div>
-
-            <div style={col}>
-              {v.total.toLocaleString()}
+            <div className="text-slate-400">
+              Locked: {v.locked.toLocaleString()}
             </div>
-
-            <div style={{
-              ...col,
-              color:"#84CC16"
-            }}>
-              {v.unlocked.toLocaleString()}
-            </div>
-
-            <div style={{
-              ...col,
-              color:"#64748B"
-            }}>
-              {v.locked.toLocaleString()}
-            </div>
-
-            <div style={colSmall}>
-              {v.tge}
-            </div>
-
-            <div style={colSmall}>
-              {v.schedule}
-            </div>
-
           </div>
-
         ))}
-
       </div>
 
-
-      {/* SUPPLY */}
-
-      <div style={supply}>
-        Total Supply:
-        <br/>
+      <div className="mt-10 text-slate-400">
+        Total Supply
+        <br />
         {TOTAL_SUPPLY.toLocaleString()} BPUNCH
       </div>
-
-
     </div>
-
   );
 
 }

@@ -1,22 +1,18 @@
 "use client";
-import React from "react";
+
 import { useState } from "react";
-import type { CSSProperties } from "react";
 import {
   ConnectionProvider,
   WalletProvider,
   useWallet
 } from "@solana/wallet-adapter-react";
-
 import {
   PhantomWalletAdapter
 } from "@solana/wallet-adapter-wallets";
-
 import {
   WalletModalProvider,
   WalletMultiButton
 } from "@solana/wallet-adapter-react-ui";
-
 import {
   Connection,
   PublicKey,
@@ -24,382 +20,98 @@ import {
   SystemProgram,
   LAMPORTS_PER_SOL
 } from "@solana/web3.js";
-
 import "@solana/wallet-adapter-react-ui/styles.css";
 
+const RPC = "https://rpc.ankr.com/solana";
+const PRESALE_WALLET = "PASTE_WALLET_KAMU_DISINI";
+const RATE = 250000;
+const MIN_SOL = 0.03;
 
+function PresaleMain() {
+  const { publicKey, sendTransaction, connected } = useWallet();
+  const [amount, setAmount] = useState("");
 
-// RPC MAINNET
-const RPC =
-"https://rpc.ankr.com/solana";
+  const sol = Number(amount) || 0;
+  const bpunch = sol * RATE;
 
+  async function buyToken() {
+    if (!publicKey) return alert("Connect wallet first");
+    if (sol < MIN_SOL) return alert(`Minimum buy is ${MIN_SOL} SOL`);
 
-// WALLET PRESALE
-const PRESALE_WALLET =
-"PASTE_WALLET_KAMU_DISINI";
+    const connection = new Connection(RPC);
+    const lamports = sol * LAMPORTS_PER_SOL;
 
+    const transaction = new Transaction().add(
+      SystemProgram.transfer({
+        fromPubkey: publicKey,
+        toPubkey: new PublicKey(PRESALE_WALLET),
+        lamports
+      })
+    );
 
-// TOKEN RATE
-const RATE =
-250000;
-
-
-// MINIMUM SOL
-const MIN_SOL =
-0.03;
-
-
-
-function PresaleMain(){
-
-  const {
-    publicKey,
-    sendTransaction,
-    connected
-  } = useWallet();
-
-  const [amount,setAmount] =
-    useState("");
-
-
-  const connection =
-    new Connection(RPC);
-
-
-  const sol =
-    Number(amount) || 0;
-
-
-  const bpunch =
-    sol * RATE;
-
-
-
-  async function buyToken(){
-
-    try{
-
-      if(!publicKey){
-
-        alert("Connect wallet first");
-        return;
-
-      }
-
-
-      if(sol < MIN_SOL){
-
-        alert(
-          "Minimum buy is "
-          + MIN_SOL
-          + " SOL"
-        );
-
-        return;
-
-      }
-
-
-      const lamports =
-        sol * LAMPORTS_PER_SOL;
-
-
-      const transaction =
-        new Transaction().add(
-
-          SystemProgram.transfer({
-
-            fromPubkey: publicKey,
-
-            toPubkey:
-              new PublicKey(
-                PRESALE_WALLET
-              ),
-
-            lamports
-
-          })
-
-        );
-
-
-      const signature =
-        await sendTransaction(
-          transaction,
-          connection
-        );
-
-
-      alert(
-        "Success!\n\nTX:\n"
-        + signature
-      );
-
-
-    }catch(err:any){
-
-      if(
-        err.message?.includes(
-          "rejected"
-        )
-      ){
-
-        alert("Cancelled");
-
-      }else{
-
-        alert("Transaction failed");
-
-      }
-
+    try {
+      const signature = await sendTransaction(transaction, connection);
+      alert(`Success!\n\nTX:\n${signature}`);
+    } catch {
+      alert("Transaction failed");
     }
-
   }
 
-
-
-  return(
-
-    <div style={container}>
-
-
-      {/* TITLE */}
-
-      <h1 style={title}>
-        Join
-        <span style={{
-          color:"#84CC16"
-        }}>
-          {" "} $BPUNCH
-        </span>
-        {" "}Presale
+  return (
+    <div className="bg-[#020617] min-h-screen flex flex-col items-center justify-center text-white px-4">
+      <h1 className="text-3xl font-bold mb-6">
+        Join <span className="text-lime-400">$BPUNCH</span> Presale
       </h1>
 
-
-
-      {/* ICON */}
-
-      <div style={icon}>
+      <div className="bg-yellow-400 text-black w-20 h-20 rounded-2xl flex items-center justify-center text-3xl mb-6">
         🐵
       </div>
 
+      <WalletMultiButton />
 
-
-      {/* CONNECT */}
-
-      <WalletMultiButton/>
-
-
-
-      {/* INPUT */}
-
-      <div style={box}>
-
-        <label style={label}>
-          You Pay (SOL)
-        </label>
-
+      <div className="mt-6 flex flex-col items-center gap-4">
         <input
-
           type="number"
-
           placeholder="0.03"
-
           value={amount}
-
-          onChange={
-            e =>
-            setAmount(
-              e.target.value
-            )
-          }
-
-          style={input}
-
+          onChange={e => setAmount(e.target.value)}
+          className="bg-[#020617] border border-slate-800 rounded-lg px-4 py-2 w-64 text-white"
         />
 
-      </div>
+        <div className="text-xl">
+          You Receive: {bpunch.toLocaleString()} BPUNCH
+        </div>
 
-
-
-      {/* ARROW */}
-
-      <div style={{
-        fontSize:"24px",
-        margin:"10px"
-      }}>
-        ↓
-      </div>
-
-
-
-      {/* RECEIVE */}
-
-      <div style={box}>
-
-        <label style={label}>
-          You Receive (BPUNCH)
-        </label>
-
-        <input
-
-          value={
-            bpunch.toLocaleString()
-          }
-
-          readOnly
-
-          style={input}
-
-        />
-
-      </div>
-
-
-
-      {/* MIN TEXT */}
-
-      <p style={minText}>
-        Minimum purchase:
-        {" "}
-        {MIN_SOL}
-        {" "}SOL
-      </p>
-
-
-
-      {/* BUY */}
-
-      <button
-        onClick={buyToken}
-        style={button}
-      >
-        Buy BPUNCH
-      </button>
-
-
-
-      {/* WALLET */}
-
-      {connected && publicKey &&(
-
-        <p style={wallet}>
-          {publicKey.toString()}
+        <p className="text-sm text-slate-400">
+          Minimum purchase: {MIN_SOL} SOL
         </p>
 
-      )}
+        <button
+          onClick={buyToken}
+          className="bg-lime-400 text-black px-6 py-3 rounded-xl font-bold hover:opacity-90"
+        >
+          Buy BPUNCH
+        </button>
 
-
-
+        {connected && publicKey && (
+          <p className="text-xs text-slate-500 break-all max-w-xs mt-4">
+            {publicKey.toString()}
+          </p>
+        )}
+      </div>
     </div>
-
   );
-
 }
 
-
-
-export default function PresalePage(){
-
-  const wallets=[
-    new PhantomWalletAdapter()
-  ];
-
-  return(
-
+export default function PresalePage() {
+  const wallets = [new PhantomWalletAdapter()];
+  return (
     <ConnectionProvider endpoint={RPC}>
-
-      <WalletProvider
-        wallets={wallets}
-        autoConnect
-      >
-
+      <WalletProvider wallets={wallets} autoConnect>
         <WalletModalProvider>
-
-          <PresaleMain/>
-
+          <PresaleMain />
         </WalletModalProvider>
-
       </WalletProvider>
-
     </ConnectionProvider>
-
   );
-
 }
-
-
-
-/* STYLES */
-const container = {
-  background: "#020617",
-  height: "100vh",
-  display: "flex",
-  flexDirection: "column" as const,
-  justifyContent: "center",
-  alignItems: "center",
-  color: "white",
-};
-
-const title: CSSProperties = {
-  fontSize: "32px",
-  marginBottom: "20px",
-};
-
-const icon: CSSProperties = {
-  background: "#FACC15",
-  width: "80px",
-  height: "80px",
-  borderRadius: "20px",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  fontSize: "36px",
-  marginBottom: "20px",
-};
-
-const box: React.CSSProperties = {
-  display: "flex",
-  flexDirection: "column",
-  marginTop: "10px",
-};
-
-const label: CSSProperties = {
-  color: "#94A3B8",
-  marginBottom: "5px",
-};
-
-const input: CSSProperties = {
-  padding: "12px",
-  borderRadius: "10px",
-  border: "1px solid #1E293B",
-  background: "#020617",
-  color: "white",
-  width: "240px",
-  fontSize: "16px",
-};
-
-const button: CSSProperties = {
-  marginTop: "20px",
-  padding: "14px 30px",
-  background: "#84CC16",
-  border: "none",
-  borderRadius: "12px",
-  fontWeight: "bold",
-  fontSize: "16px",
-  cursor: "pointer",
-};
-
-const wallet: CSSProperties = {
-  marginTop: "20px",
-  fontSize: "11px",
-  color: "#64748B",
-  maxWidth: "300px",
-  wordBreak: "break-all",
-};
-
-const minText: CSSProperties = {
-  marginTop: "10px",
-  fontSize: "12px",
-  color: "#64748B",
-};
