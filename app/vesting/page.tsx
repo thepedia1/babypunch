@@ -209,26 +209,26 @@ export default function VestingPage() {
 
 /* STYLES */
 
-const container: CSSProperties = {
+const container = {
   background: "#020617",
   minHeight: "100vh",
   color: "white",
   padding: "40px"
 };
 
-const title: CSSProperties = {
+const title = {
   fontSize: "32px",
   marginBottom: "30px"
 };
 
-const cardRow: CSSProperties = {
-  display: "flex",
+const cardRow = {
+  display: "flex" as const,
   gap: "20px",
   marginBottom: "40px",
-  flexWrap: "wrap"
+  flexWrap: "wrap" as const
 };
 
-const card: CSSProperties = {
+const card = {
   background: "#020617",
   border: "1px solid #1E293B",
   padding: "20px",
@@ -236,54 +236,54 @@ const card: CSSProperties = {
   width: "260px"
 };
 
-const cardTitle: CSSProperties = {
+const cardTitle = {
   fontSize: "18px",
   marginBottom: "10px"
 };
 
-const green: CSSProperties = {
+const green = {
   color: "#84CC16",
-  fontWeight: "bold",
+  fontWeight: "bold" as const,
   marginBottom: "5px"
 };
 
-const sub: CSSProperties = {
+const sub = {
   color: "#64748B",
   fontSize: "13px"
 };
 
-const progressSection: CSSProperties = {
+const progressSection = {
   marginBottom: "40px"
 };
 
-const progressTitle: CSSProperties = {
+const progressTitle = {
   marginBottom: "10px"
 };
 
-const progressBar: CSSProperties = {
+const progressBar = {
   height: "8px",
   background: "#1E293B",
   borderRadius: "10px"
 };
 
-const progressFill: CSSProperties = {
+const progressFill = {
   width: "0%",
   height: "100%",
   background: "#84CC16"
 };
 
-const progressText: CSSProperties = {
+const progressText = {
   marginTop: "8px",
   color: "#64748B",
   fontSize: "13px"
 };
 
-const table: CSSProperties = {
+const table = {
   marginTop: "20px"
 };
 
-const headerRow: CSSProperties = {
-  display: "flex",
+const headerRow = {
+  display: "flex" as const,
   borderBottom: "1px solid #1E293B",
   paddingBottom: "10px",
   marginBottom: "10px",
@@ -291,26 +291,26 @@ const headerRow: CSSProperties = {
   fontSize: "13px"
 };
 
-const row: CSSProperties = {
-  display: "flex",
+const row = {
+  display: "flex" as const,
   padding: "10px 0"
 };
 
-const colType: CSSProperties = {
+const colType = {
   width: "140px"
 };
 
-const col: CSSProperties = {
+const col = {
   width: "180px"
 };
 
-const colSmall: CSSProperties = {
+const colSmall = {
   width: "180px",
   fontSize: "12px",
   color: "#94A3B8"
 };
 
-const supply: CSSProperties = {
+const supply = {
   marginTop: "40px",
   color: "#64748B",
   fontSize: "14px"
