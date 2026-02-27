@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 import { useState } from "react";
 import type { CSSProperties } from "react";
 import {
@@ -357,9 +358,9 @@ const icon: CSSProperties = {
   marginBottom: "20px",
 };
 
-const box = {
+const box: React.CSSProperties = {
   display: "flex",
-  flexDirection: "column" as const,
+  flexDirection: "column",
   marginTop: "10px",
 };
 
