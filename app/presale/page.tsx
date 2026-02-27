@@ -1,4 +1,5 @@
 "use client";
+
 import AirdropDashboard from "@/components/AirdropDashboard";
 import { useState, useEffect } from "react";
 import {
@@ -6,9 +7,7 @@ import {
   WalletProvider,
   useWallet
 } from "@solana/wallet-adapter-react";
-import {
-  PhantomWalletAdapter
-} from "@solana/wallet-adapter-wallets";
+import { PhantomWalletAdapter } from "@solana/wallet-adapter-wallets";
 import {
   WalletModalProvider,
   WalletMultiButton
@@ -30,69 +29,61 @@ const MIN_SOL = 0.03;
 function PresaleMain() {
   const { publicKey, sendTransaction, connected } = useWallet();
   const [amount, setAmount] = useState("");
-useEffect(() => {
-  if (!publicKey) return;
+  const [loading, setLoading] = useState(false);
+  const [txSig, setTxSig] = useState<string | null>(null);
 
-  const wallet = publicKey.toString();
-  const urlParams = new URLSearchParams(window.location.search);
-  const ref = urlParams.get("ref");
-
-  // ❌ Tidak ada ref atau self-ref
-  if (!ref || ref === wallet) return;
-
-  // 🔒 Cek apakah wallet ini sudah pernah klaim referral
-  const alreadyClaimed = localStorage.getItem(
-    `ref_claimed_by_${wallet}`
-  );
-
-  if (alreadyClaimed) return;
-
-  // 🔍 Ambil data referrer
-  const refData = localStorage.getItem(ref);
-  if (!refData) return;
-
-  const parsed = JSON.parse(refData);
-  parsed.ref = (parsed.ref || 0) + 500;
-
-  localStorage.setItem(ref, JSON.stringify(parsed));
-
-  // Tandai sudah klaim
-  localStorage.setItem(
-    `ref_claimed_by_${wallet}`,
-    "true"
-  );
-
-}, [publicKey]);
   const sol = Number(amount) || 0;
   const base = sol * RATE;
-const bonus = base * 0.05;
-const bpunch = base + bonus;
+  const bonus = base * 0.05;
+  const bpunch = base + bonus;
 
   async function buyToken() {
     if (!publicKey) return alert("Connect wallet first");
     if (sol < MIN_SOL) return alert(`Minimum buy is ${MIN_SOL} SOL`);
 
-    const connection = new Connection(RPC);
-    const lamports = sol * LAMPORTS_PER_SOL;
-
-    const transaction = new Transaction().add(
-      SystemProgram.transfer({
-        fromPubkey: publicKey,
-        toPubkey: new PublicKey(PRESALE_WALLET),
-        lamports
-      })
-    );
-
     try {
+      setLoading(true);
+      setTxSig(null);
+
+      const connection = new Connection(RPC);
+      const lamports = sol * LAMPORTS_PER_SOL;
+
+      const transaction = new Transaction().add(
+        SystemProgram.transfer({
+          fromPubkey: publicKey,
+          toPubkey: new PublicKey(PRESALE_WALLET),
+          lamports
+        })
+      );
+
       const signature = await sendTransaction(transaction, connection);
-      alert(`Success!\n\nTX:\n${signature}`);
-    } catch {
-      alert("Transaction failed");
+
+      // Tunggu konfirmasi
+      await connection.confirmTransaction(signature, "processed");
+
+      // Simulasi bonus 5%
+      const wallet = publicKey.toString();
+      const stored = localStorage.getItem(wallet);
+
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        parsed.presaleBonus = (parsed.presaleBonus || 0) + bonus;
+        localStorage.setItem(wallet, JSON.stringify(parsed));
+      }
+
+      setTxSig(signature);
+
+    } catch (err: any) {
+      console.log("TX ERROR:", err);
+      // Jangan alert gagal, biarkan wallet yang handle
+    } finally {
+      setLoading(false);
     }
   }
 
   return (
     <div className="bg-[#020617] min-h-screen flex flex-col items-center justify-center text-white px-4">
+
       <h1 className="text-3xl font-bold mb-6">
         Join <span className="text-lime-400">$BPUNCH</span> Presale
       </h1>
@@ -102,8 +93,11 @@ const bpunch = base + bonus;
       </div>
 
       <WalletMultiButton />
+
       <AirdropDashboard />
+
       <div className="mt-6 flex flex-col items-center gap-4">
+
         <input
           type="number"
           placeholder="0.03"
@@ -117,21 +111,37 @@ const bpunch = base + bonus;
         </div>
 
         <p className="text-sm text-slate-400">
+          Includes 5% bonus automatically
+        </p>
+
+        <p className="text-sm text-slate-400">
           Minimum purchase: {MIN_SOL} SOL
         </p>
 
         <button
           onClick={buyToken}
-          className="bg-lime-400 text-black px-6 py-3 rounded-xl font-bold hover:opacity-90"
+          disabled={loading}
+          className="bg-lime-400 text-black px-6 py-3 rounded-xl font-bold hover:opacity-90 disabled:opacity-50"
         >
-          Buy BPUNCH
+          {loading ? "Processing..." : "Buy BPUNCH"}
         </button>
+
+        {txSig && (
+          <a
+            href={`https://solscan.io/tx/${txSig}`}
+            target="_blank"
+            className="text-lime-400 text-sm mt-2 underline"
+          >
+            View Transaction
+          </a>
+        )}
 
         {connected && publicKey && (
           <p className="text-xs text-slate-500 break-all max-w-xs mt-4">
             {publicKey.toString()}
           </p>
         )}
+
       </div>
     </div>
   );
