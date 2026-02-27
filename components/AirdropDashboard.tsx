@@ -24,7 +24,16 @@ export default function AirdropDashboard() {
       localStorage.setItem(wallet, JSON.stringify(initial));
       setData(initial);
     } else {
-      setData(JSON.parse(stored));
+      const parsed = JSON.parse(stored);
+
+const fixed = {
+  airdrop: parsed.airdrop || 0,
+  referral: parsed.referral || 0,
+  presaleBonus: parsed.presaleBonus || 0
+};
+
+setData(fixed);
+localStorage.setItem(wallet, JSON.stringify(fixed));
     }
   }, [publicKey]);
 
@@ -54,9 +63,9 @@ export default function AirdropDashboard() {
   if (!publicKey || !data) return null;
 
   const total =
-    data.airdrop +
-    data.referral +
-    data.presaleBonus;
+  (data.airdrop || 0) +
+  (data.referral || 0) +
+  (data.presaleBonus || 0);
 
   const referralLink =
     window.location.origin +
@@ -71,9 +80,9 @@ export default function AirdropDashboard() {
         {total.toLocaleString()} BPUNCH
       </h1>
 
-      <p>Airdrop: {data.airdrop}</p>
-      <p>Referral: {data.referral}</p>
-      <p>Presale Bonus: {data.presaleBonus}</p>
+      <p>Airdrop: {data.airdrop || 0}</p>
+<p>Referral: {data.referral || 0}</p>
+<p>Presale Bonus: {data.presaleBonus || 0}</p>
 
       <div style={{ marginTop: "20px" }}>
         <p>Your Referral Link:</p>
