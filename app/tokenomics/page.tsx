@@ -286,12 +286,8 @@ const row={
 };
 
 
-const total={
-
+const total = {
   marginTop:"20px",
-
   color:"#94A3B8",
-
-  textAlign:"center"
-
+  textAlign:"center" as const
 };
