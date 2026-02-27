@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import dynamic from "next/dynamic";
 import type { CSSProperties } from "react";
 import {
   ConnectionProvider,
@@ -13,7 +12,8 @@ import {
 } from "@solana/wallet-adapter-wallets";
 
 import {
-  WalletModalProvider
+  WalletModalProvider,
+  WalletMultiButton
 } from "@solana/wallet-adapter-react-ui";
 
 import {
@@ -26,12 +26,6 @@ import {
 
 import "@solana/wallet-adapter-react-ui/styles.css";
 
-const WalletMultiButton = dynamic(
-  () =>
-    import("@solana/wallet-adapter-react-ui")
-      .then(mod => mod.WalletMultiButton),
-  { ssr:false }
-);
 
 
 // RPC MAINNET
