@@ -171,123 +171,75 @@ export default function Tokenomics(){
 
 
 /* STYLES */
-
-const container={
-
-  background:"#020617",
-
-  minHeight:"100vh",
-
-  display:"flex",
-
-flexDirection: "column" as const,
-
-  alignItems:"center",
-
-  justifyContent:"center",
-
-  color:"white"
-
+const container = {
+  background: "#020617",
+  minHeight: "100vh",
+  display: "flex" as const,
+  flexDirection: "column" as const,
+  alignItems: "center" as const,
+  justifyContent: "center" as const,
+  color: "white"
 };
 
-
-const title={
-
-  fontSize:"32px",
-
-  marginBottom:"30px"
-
+const title = {
+  fontSize: "32px",
+  marginBottom: "30px"
 };
 
-
-const chartWrapper={
-
-  marginBottom:"30px"
-
+const chartWrapper = {
+  marginBottom: "30px"
 };
 
-
-const donut={
-
-  width:"360px",
-  height:"360px",
-
-  borderRadius:"50%",
-
-  display:"flex",
-
-  alignItems:"center",
-
-  justifyContent:"center"
-
+const donut = {
+  width: "360px",
+  height: "360px",
+  borderRadius: "50%",
+  display: "flex" as const,
+  alignItems: "center" as const,
+  justifyContent: "center" as const
 };
-
 
 const center = {
   width: "180px",
   height: "180px",
   borderRadius: "50%",
   background: "#020617",
-  display: "flex",
+  display: "flex" as const,
   flexDirection: "column" as const,
-  alignItems: "center",
-  justifyContent: "center",
+  alignItems: "center" as const,
+  justifyContent: "center" as const,
   border: "4px solid #1E293B"
 };
 
-
-const monkeyIcon={
-
-  fontSize:"50px",
-
-  marginBottom:"10px",
-
-  background:"#FACC15",
-
-  width:"70px",
-
-  height:"70px",
-
-  borderRadius:"16px",
-
-  display:"flex",
-
-  alignItems:"center",
-
-  justifyContent:"center"
-
+const monkeyIcon = {
+  fontSize: "50px",
+  marginBottom: "10px",
+  background: "#FACC15",
+  width: "70px",
+  height: "70px",
+  borderRadius: "16px",
+  display: "flex" as const,
+  alignItems: "center" as const,
+  justifyContent: "center" as const
 };
 
-
-const centerText={
-
-  color:"#84CC16",
-
-  fontWeight:"bold"
-
+const centerText = {
+  color: "#84CC16",
+  fontWeight: "bold"
 };
 
-
-const legend={
-
-  width:"320px"
-
+const legend = {
+  width: "320px"
 };
 
-
-const row={
-
-  display:"flex",
-
-  justifyContent:"space-between",
-
-  marginTop:"10px"
-
+const row = {
+  display: "flex" as const,
+  justifyContent: "space-between" as const,
+  marginTop: "10px"
 };
-
 
 const total = {
-  marginTop:"20px",
-  color:"#94A3B8",
-  textAlign:"center" as const
+  marginTop: "20px",
+  color: "#94A3B8",
+  textAlign: "center" as const
 };
