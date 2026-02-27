@@ -1,4 +1,5 @@
 "use client";
+import LiveBuyTicker from "@/components/LiveBuyTicker";
 import AirdropDashboard from "@/components/AirdropDashboard";
 import { useState } from "react";
 import dynamic from "next/dynamic";
@@ -87,8 +88,11 @@ function Main() {
 )}
 
 {/* 🔥 TAMBAHKAN DI SINI */}
-{connected && (
-  <AirdropDashboard />
+ {connected && (
+  <>
+    <AirdropDashboard />
+    <LiveBuyTicker />
+  </>
 )}
 
 <div className="flex flex-col gap-3 mt-6">
