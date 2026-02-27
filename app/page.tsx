@@ -1,5 +1,5 @@
 "use client";
-
+import AirdropDashboard from "@/components/AirdropDashboard";
 import { useState } from "react";
 import dynamic from "next/dynamic";
 import {
@@ -68,25 +68,30 @@ function Main() {
 
       <WalletMultiButton />
 
-      {connected && !verified && (
-        <button
-          onClick={verifyWallet}
-          className="mt-3 px-5 py-3 bg-lime-500 text-black font-bold rounded-xl"
-        >
-          Verify Wallet
-        </button>
-      )}
+{connected && !verified && (
+  <button
+    onClick={verifyWallet}
+    className="mt-3 px-5 py-3 bg-lime-500 text-black font-bold rounded-xl"
+  >
+    Verify Wallet
+  </button>
+)}
 
-      {verified && (
-        <button
-          onClick={copyInvite}
-          className="mt-3 px-5 py-3 bg-lime-500 text-black font-bold rounded-xl"
-        >
-          Copy Invite Link
-        </button>
-      )}
+{verified && (
+  <button
+    onClick={copyInvite}
+    className="mt-3 px-5 py-3 bg-lime-500 text-black font-bold rounded-xl"
+  >
+    Copy Invite Link
+  </button>
+)}
 
-      <div className="flex flex-col gap-3 mt-6">
+{/* 🔥 TAMBAHKAN DI SINI */}
+{connected && (
+  <AirdropDashboard />
+)}
+
+<div className="flex flex-col gap-3 mt-6">
         <a
           href="/presale"
           className="px-5 py-3 bg-lime-500 text-black font-bold rounded-xl text-center w-52"
