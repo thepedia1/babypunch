@@ -330,11 +330,11 @@ export default function PresalePage(){
 
 
 /* STYLES */
-const container: CSSProperties = {
+const container = {
   background: "#020617",
   height: "100vh",
   display: "flex",
-  flexDirection: "column",
+  flexDirection: "column" as const,
   justifyContent: "center",
   alignItems: "center",
   color: "white",
@@ -357,9 +357,9 @@ const icon: CSSProperties = {
   marginBottom: "20px",
 };
 
-const box: CSSProperties = {
+const box = {
   display: "flex",
-  flexDirection: "column",
+  flexDirection: "column" as const,
   marginTop: "10px",
 };
 
