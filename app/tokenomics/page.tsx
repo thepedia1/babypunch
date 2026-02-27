@@ -223,26 +223,16 @@ const donut={
 };
 
 
-const center={
-
-  width:"180px",
-
-  height:"180px",
-
-  borderRadius:"50%",
-
-  background:"#020617",
-
-  display:"flex",
-
-  flexDirection:"column",
-
-  alignItems:"center",
-
-  justifyContent:"center",
-
-  border:"4px solid #1E293B"
-
+const center = {
+  width: "180px",
+  height: "180px",
+  borderRadius: "50%",
+  background: "#020617",
+  display: "flex",
+  flexDirection: "column" as const,
+  alignItems: "center",
+  justifyContent: "center",
+  border: "4px solid #1E293B"
 };
 
 
