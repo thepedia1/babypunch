@@ -180,7 +180,7 @@ const container={
 
   display:"flex",
 
-  flexDirection:"column",
+flexDirection: "column" as const,
 
   alignItems:"center",
 
