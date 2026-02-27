@@ -330,23 +330,22 @@ export default function PresalePage(){
 
 
 /* STYLES */
-
-const container = {
+const container: CSSProperties = {
   background: "#020617",
   height: "100vh",
   display: "flex",
-  flexDirection: "column" as const,
+  flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
   color: "white",
 };
 
-const title = {
+const title: CSSProperties = {
   fontSize: "32px",
   marginBottom: "20px",
 };
 
-const icon = {
+const icon: CSSProperties = {
   background: "#FACC15",
   width: "80px",
   height: "80px",
@@ -358,18 +357,18 @@ const icon = {
   marginBottom: "20px",
 };
 
-const box = {
+const box: CSSProperties = {
   display: "flex",
-  flexDirection: "column" as const,
+  flexDirection: "column",
   marginTop: "10px",
 };
 
-const label = {
+const label: CSSProperties = {
   color: "#94A3B8",
   marginBottom: "5px",
 };
 
-const input = {
+const input: CSSProperties = {
   padding: "12px",
   borderRadius: "10px",
   border: "1px solid #1E293B",
@@ -379,7 +378,7 @@ const input = {
   fontSize: "16px",
 };
 
-const button = {
+const button: CSSProperties = {
   marginTop: "20px",
   padding: "14px 30px",
   background: "#84CC16",
@@ -390,15 +389,15 @@ const button = {
   cursor: "pointer",
 };
 
-const wallet = {
+const wallet: CSSProperties = {
   marginTop: "20px",
   fontSize: "11px",
   color: "#64748B",
   maxWidth: "300px",
-  wordBreak: "break-all" as const,
+  wordBreak: "break-all",
 };
 
-const minText = {
+const minText: CSSProperties = {
   marginTop: "10px",
   fontSize: "12px",
   color: "#64748B",
