@@ -37,49 +37,53 @@ function PresaleMain() {
   const bonus = base * 0.05;
   const bpunch = base + bonus;
 
-  async function buyToken() {
-    if (!publicKey) return alert("Connect wallet first");
-    if (sol < MIN_SOL) return alert(`Minimum buy is ${MIN_SOL} SOL`);
+async function buyToken() {
 
-    try {
-      setLoading(true);
-      setTxSig(null);
-
-      const connection = new Connection(RPC);
-      const lamports = sol * LAMPORTS_PER_SOL;
-
-      const transaction = new Transaction().add(
-        SystemProgram.transfer({
-          fromPubkey: publicKey,
-          toPubkey: new PublicKey(PRESALE_WALLET),
-          lamports
-        })
-      );
-
-      const signature = await sendTransaction(transaction, connection);
-
-      // Tunggu konfirmasi
-      await connection.confirmTransaction(signature, "processed");
-
-      // Simulasi bonus 5%
-      const wallet = publicKey.toString();
-      const stored = localStorage.getItem(wallet);
-
-      if (stored) {
-        const parsed = JSON.parse(stored);
-        parsed.presaleBonus = (parsed.presaleBonus || 0) + bonus;
-        localStorage.setItem(wallet, JSON.stringify(parsed));
-      }
-
-      setTxSig(signature);
-
-    } catch (err: any) {
-      console.log("TX ERROR:", err);
-      // Jangan alert gagal, biarkan wallet yang handle
-    } finally {
-      setLoading(false);
-    }
+  if (!publicKey) {
+    alert("Connect wallet first");
+    return;
   }
+
+  if (sol < MIN_SOL) {
+    alert(`Minimum buy is ${MIN_SOL} SOL`);
+    return;
+  }
+
+  try {
+
+    setLoading(true);
+
+    const connection = new Connection(RPC);
+
+    const { blockhash } =
+      await connection.getLatestBlockhash();
+
+    const lamports = sol * LAMPORTS_PER_SOL;
+
+    const transaction = new Transaction({
+      recentBlockhash: blockhash,
+      feePayer: publicKey
+    }).add(
+      SystemProgram.transfer({
+        fromPubkey: publicKey,
+        toPubkey: new PublicKey(PRESALE_WALLET),
+        lamports
+      })
+    );
+
+    const signature =
+      await sendTransaction(transaction, connection);
+
+    await connection.confirmTransaction(signature);
+
+    setTxSig(signature);
+
+  } catch (err) {
+    console.log("TX ERROR:", err);
+  } finally {
+    setLoading(false);
+  }
+}
 
   return (
     <div className="bg-[#020617] min-h-screen flex flex-col items-center justify-center text-white px-4">
