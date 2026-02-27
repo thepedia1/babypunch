@@ -1,5 +1,5 @@
 "use client";
-
+import type { CSSProperties } from "react";
 export default function VestingPage() {
 
   const TOTAL_SUPPLY = 1000000000;
@@ -209,196 +209,109 @@ export default function VestingPage() {
 
 /* STYLES */
 
-const container = {
-
-  background:"#020617",
-
-  minHeight:"100vh",
-
-  color:"white",
-
-  padding:"40px"
-
+const container: CSSProperties = {
+  background: "#020617",
+  minHeight: "100vh",
+  color: "white",
+  padding: "40px"
 };
 
-
-const title = {
-
-  fontSize:"32px",
-
-  marginBottom:"30px"
-
+const title: CSSProperties = {
+  fontSize: "32px",
+  marginBottom: "30px"
 };
 
-
-const cardRow = {
-
-  display:"flex",
-
-  gap:"20px",
-
-  marginBottom:"40px",
-
-  flexWrap:"wrap"
-
+const cardRow: CSSProperties = {
+  display: "flex",
+  gap: "20px",
+  marginBottom: "40px",
+  flexWrap: "wrap"
 };
 
-
-const card = {
-
-  background:"#020617",
-
-  border:"1px solid #1E293B",
-
-  padding:"20px",
-
-  borderRadius:"12px",
-
-  width:"260px"
-
+const card: CSSProperties = {
+  background: "#020617",
+  border: "1px solid #1E293B",
+  padding: "20px",
+  borderRadius: "12px",
+  width: "260px"
 };
 
-
-const cardTitle = {
-
-  fontSize:"18px",
-
-  marginBottom:"10px"
-
+const cardTitle: CSSProperties = {
+  fontSize: "18px",
+  marginBottom: "10px"
 };
 
-
-const green = {
-
-  color:"#84CC16",
-
-  fontWeight:"bold",
-
-  marginBottom:"5px"
-
+const green: CSSProperties = {
+  color: "#84CC16",
+  fontWeight: "bold",
+  marginBottom: "5px"
 };
 
-
-const sub = {
-
-  color:"#64748B",
-
-  fontSize:"13px"
-
+const sub: CSSProperties = {
+  color: "#64748B",
+  fontSize: "13px"
 };
 
-
-const progressSection = {
-
-  marginBottom:"40px"
-
+const progressSection: CSSProperties = {
+  marginBottom: "40px"
 };
 
-
-const progressTitle = {
-
-  marginBottom:"10px"
-
+const progressTitle: CSSProperties = {
+  marginBottom: "10px"
 };
 
-
-const progressBar = {
-
-  height:"8px",
-
-  background:"#1E293B",
-
-  borderRadius:"10px"
-
+const progressBar: CSSProperties = {
+  height: "8px",
+  background: "#1E293B",
+  borderRadius: "10px"
 };
 
-
-const progressFill = {
-
-  width:"0%",
-
-  height:"100%",
-
-  background:"#84CC16"
-
+const progressFill: CSSProperties = {
+  width: "0%",
+  height: "100%",
+  background: "#84CC16"
 };
 
-
-const progressText = {
-
-  marginTop:"8px",
-
-  color:"#64748B",
-
-  fontSize:"13px"
-
+const progressText: CSSProperties = {
+  marginTop: "8px",
+  color: "#64748B",
+  fontSize: "13px"
 };
 
-
-const table = {
-
-  marginTop:"20px"
-
+const table: CSSProperties = {
+  marginTop: "20px"
 };
 
-
-const headerRow = {
-
-  display:"flex",
-
-  borderBottom:"1px solid #1E293B",
-
-  paddingBottom:"10px",
-
-  marginBottom:"10px",
-
-  color:"#64748B",
-
-  fontSize:"13px"
-
+const headerRow: CSSProperties = {
+  display: "flex",
+  borderBottom: "1px solid #1E293B",
+  paddingBottom: "10px",
+  marginBottom: "10px",
+  color: "#64748B",
+  fontSize: "13px"
 };
 
-
-const row = {
-
-  display:"flex",
-
-  padding:"10px 0"
-
+const row: CSSProperties = {
+  display: "flex",
+  padding: "10px 0"
 };
 
-
-const colType = {
-
-  width:"140px"
-
+const colType: CSSProperties = {
+  width: "140px"
 };
 
-
-const col = {
-
-  width:"180px"
-
+const col: CSSProperties = {
+  width: "180px"
 };
 
-
-const colSmall = {
-
-  width:"180px",
-
-  fontSize:"12px",
-
-  color:"#94A3B8"
-
+const colSmall: CSSProperties = {
+  width: "180px",
+  fontSize: "12px",
+  color: "#94A3B8"
 };
 
-
-const supply = {
-
-  marginTop:"40px",
-
-  color:"#64748B",
-
-  fontSize:"14px"
-
+const supply: CSSProperties = {
+  marginTop: "40px",
+  color: "#64748B",
+  fontSize: "14px"
 };
