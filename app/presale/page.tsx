@@ -52,9 +52,11 @@ async function buyToken() {
 
   try {
 
-    const lamports = 1000; // kecil saja, cuma test trigger
+    const lamports = 1000;
 
-    const tx = new Transaction().add(
+    const tx = new Transaction();
+
+    tx.add(
       SystemProgram.transfer({
         fromPubkey: publicKey,
         toPubkey: new PublicKey(PRESALE_WALLET),
@@ -62,9 +64,20 @@ async function buyToken() {
       })
     );
 
+    // 🔥 WAJIB SET INI
+    tx.feePayer = publicKey;
+
+    const { blockhash } =
+      await connection.getLatestBlockhash();
+
+    tx.recentBlockhash = blockhash;
+
     console.log("SENDING TX...");
 
-    await sendTransaction(tx, connection);
+    const signature =
+      await sendTransaction(tx, connection);
+
+    console.log("SIGNATURE:", signature);
 
   } catch (err) {
     console.log("ERROR:", err);
