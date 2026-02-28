@@ -22,7 +22,7 @@ import {
 } from "@solana/web3.js";
 import "@solana/wallet-adapter-react-ui/styles.css";
 
-const RPC = "https://rpc.ankr.com/solana";
+const RPC = "https://rpc.ankr.com/solana_mainnet";
 const PRESALE_WALLET = "FntakqGLjJXXJy1GRRozbUrUiwyeA52dhbe7CmUanc1";
 const RATE = 250000;
 const MIN_SOL = 0.03;
