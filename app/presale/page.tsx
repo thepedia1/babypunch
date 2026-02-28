@@ -144,7 +144,6 @@ console.log("PUBLIC KEY:", publicKey);
   }}
   className="bg-red-500 px-4 py-2 mt-4"
 >
-  Test Wallet Popup
 </button>
         </button>
 
