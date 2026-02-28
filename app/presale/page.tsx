@@ -42,27 +42,19 @@ function PresaleMain() {
   const bpunch = base + bonus;
 
 async function buyToken() {
-console.log("CLICKED BUY");
-console.log("PUBLIC KEY:", publicKey);
+
+  console.log("BUY CLICKED");
+
   if (!publicKey) {
     alert("Connect wallet first");
     return;
   }
 
-  if (sol < MIN_SOL) {
-    alert(`Minimum buy is ${MIN_SOL} SOL`);
-    return;
-  }
-
   try {
 
-    setLoading(true);
+    const lamports = 1000; // kecil saja, cuma test trigger
 
-    const lamports = sol * LAMPORTS_PER_SOL;
-
-    const transaction = new Transaction();
-
-    transaction.add(
+    const tx = new Transaction().add(
       SystemProgram.transfer({
         fromPubkey: publicKey,
         toPubkey: new PublicKey(PRESALE_WALLET),
@@ -70,25 +62,12 @@ console.log("PUBLIC KEY:", publicKey);
       })
     );
 
-    transaction.feePayer = publicKey;
+    console.log("SENDING TX...");
 
-    const latestBlockhash =
-      await connection.getLatestBlockhash();
-
-    transaction.recentBlockhash =
-      latestBlockhash.blockhash;
-
-    const signed =
-      await sendTransaction(transaction, connection);
-
-    await connection.confirmTransaction(signed);
-
-    setTxSig(signed);
+    await sendTransaction(tx, connection);
 
   } catch (err) {
     console.log("ERROR:", err);
-  } finally {
-    setLoading(false);
   }
 }
 
