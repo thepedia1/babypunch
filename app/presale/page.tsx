@@ -5,7 +5,8 @@ import { useState, useEffect } from "react";
 import {
   ConnectionProvider,
   WalletProvider,
-  useWallet
+  useWallet,
+  useConnection
 } from "@solana/wallet-adapter-react";
 import { PhantomWalletAdapter } from "@solana/wallet-adapter-wallets";
 import {
@@ -28,6 +29,7 @@ const MIN_SOL = 0.03;
 
 function PresaleMain() {
   const { publicKey, sendTransaction, connected } = useWallet();
+  const { connection } = useConnection();
   const [amount, setAmount] = useState("");
   const [loading, setLoading] = useState(false);
   const [txSig, setTxSig] = useState<string | null>(null);
@@ -53,17 +55,9 @@ async function buyToken() {
 
     setLoading(true);
 
-    const connection = new Connection(RPC);
-
-    const { blockhash } =
-      await connection.getLatestBlockhash();
-
     const lamports = sol * LAMPORTS_PER_SOL;
 
-    const transaction = new Transaction({
-      recentBlockhash: blockhash,
-      feePayer: publicKey
-    }).add(
+    const transaction = new Transaction().add(
       SystemProgram.transfer({
         fromPubkey: publicKey,
         toPubkey: new PublicKey(PRESALE_WALLET),
@@ -71,10 +65,12 @@ async function buyToken() {
       })
     );
 
-    const signature =
-      await sendTransaction(transaction, connection);
+    const signature = await sendTransaction(
+      transaction,
+      connection
+    );
 
-    await connection.confirmTransaction(signature);
+    await connection.confirmTransaction(signature, "processed");
 
     setTxSig(signature);
 
