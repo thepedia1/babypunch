@@ -135,6 +135,17 @@ console.log("PUBLIC KEY:", publicKey);
           className="bg-lime-400 text-black px-6 py-3 rounded-xl font-bold hover:opacity-90 disabled:opacity-50"
         >
           {loading ? "Processing..." : "Buy BPUNCH"}
+          <button
+  onClick={async () => {
+    if (!publicKey) return;
+    const tx = new Transaction();
+    tx.feePayer = publicKey;
+    await sendTransaction(tx, connection);
+  }}
+  className="bg-red-500 px-4 py-2 mt-4"
+>
+  Test Wallet Popup
+</button>
         </button>
 
         {txSig && (
