@@ -42,7 +42,8 @@ function PresaleMain() {
   const bpunch = base + bonus;
 
 async function buyToken() {
-
+console.log("CLICKED BUY");
+console.log("PUBLIC KEY:", publicKey);
   if (!publicKey) {
     alert("Connect wallet first");
     return;
