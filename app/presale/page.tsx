@@ -22,7 +22,7 @@ import {
 } from "@solana/web3.js";
 import "@solana/wallet-adapter-react-ui/styles.css";
 
-const RPC = "https://rpc.ankr.com/solana";
+const RPC = "https://api.mainnet-beta.solana.com";
 const PRESALE_WALLET = "FntakqGLjJXXJy1GRRozbUrUiwyeA52dhbe7CmUanc1";
 const RATE = 250000;
 const MIN_SOL = 0.03;
@@ -33,6 +33,8 @@ function PresaleMain() {
   const [amount, setAmount] = useState("");
   const [loading, setLoading] = useState(false);
   const [txSig, setTxSig] = useState<string | null>(null);
+  console.log("Wallet:", publicKey);
+  console.log("sendTransaction:", sendTransaction);
 
   const sol = Number(amount) || 0;
   const base = sol * RATE;
@@ -57,7 +59,9 @@ async function buyToken() {
 
     const lamports = sol * LAMPORTS_PER_SOL;
 
-    const transaction = new Transaction().add(
+    const transaction = new Transaction();
+
+    transaction.add(
       SystemProgram.transfer({
         fromPubkey: publicKey,
         toPubkey: new PublicKey(PRESALE_WALLET),
@@ -65,17 +69,23 @@ async function buyToken() {
       })
     );
 
-    const signature = await sendTransaction(
-      transaction,
-      connection
-    );
+    transaction.feePayer = publicKey;
 
-    await connection.confirmTransaction(signature, "processed");
+    const latestBlockhash =
+      await connection.getLatestBlockhash();
 
-    setTxSig(signature);
+    transaction.recentBlockhash =
+      latestBlockhash.blockhash;
+
+    const signed =
+      await sendTransaction(transaction, connection);
+
+    await connection.confirmTransaction(signed);
+
+    setTxSig(signed);
 
   } catch (err) {
-    console.log("TX ERROR:", err);
+    console.log("ERROR:", err);
   } finally {
     setLoading(false);
   }
